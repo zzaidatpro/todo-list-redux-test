@@ -1,25 +1,9 @@
-import tasksReducer, {
-  addTask,
-  deleteTask,
-  deleteAllTasks,
-  deleteAllDoneTasks,
-  toggleTask,
-  editTask,
-  setFilter,
-} from './tasksSlice';
+import taskReducer, { addTask, toggleTask } from './taskSlice';
 
-describe('tasksSlice - Tests TDD du Reducer Redux', () => {
+test('doit ajouter une tâche dans le state Redux', () => {
+  const initialState = [];
+  const nextState = taskReducer(initialState, addTask({ id: 1, description: 'Test', isDone: false }));
   
-  const initialState = {
-    items: [
-      { id: 1, description: 'React-Redux', isDone: false },
-      { id: 2, description: 'Redux-Hooks', isDone: false },
-      { id: 3, description: 'Redux-Toolkit', isDone: false },
-      { id: 4, description: 'Redux-Saga', isDone: false },
-      { id: 5, description: 'Redux-Thunk', isDone: false },
-      { id: 6, description: 'Redux-Flux', isDone: false },
-      { id: 7, description: 'Redux-Mobx', isDone: false },
-    ],
-    filter: 'ALL',
-  };
-                                                            });
+  expect(nextState).toHaveLength(1);
+  expect(nextState[0].description).toBe('Test');
+});

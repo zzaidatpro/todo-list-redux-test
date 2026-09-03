@@ -7,7 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node run-tests.js",
+    "test:unit": "node run-tests.js unit",
+    "test:integration": "node run-tests.js integration",
+    "test:e2e": "node run-tests.js e2e",
+    "test:all": "node run-tests.js all"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",

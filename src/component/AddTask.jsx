@@ -4,7 +4,7 @@ import { useState } from 'react';
 // "useDispatch" est le hook Redux permettant d'envoyer des actions au store.
 import { useDispatch } from 'react-redux';
 // On importe le créateur d'action "addTask" exporté depuis notre Slice.
-import { addTask } from '../redux/tasksSlice';
+import { addTask } from '../redux/taskSlice';
 
 // 2. DÉCLARATION DU COMPOSANT
 export function AddTask() {

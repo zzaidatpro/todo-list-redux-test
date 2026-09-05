@@ -1,42 +1,48 @@
-const { execSync } = require('child_process');
+import { execSync } from 'child_process';
 
-const testType = process.argv[2];
+const testType = process.argv[2] || 'all';
 
-function runCommand(cmd) {
+function runCommand(command) {
   try {
-    execSync(cmd, { stdio: 'inherit' });
+    execSync(command, { stdio: 'inherit' });
   } catch (error) {
-    process.exit(1);
+    console.error(`\n❌ Échec de la commande : ${command}`);
+    process.exit(1); // Arrête l'exécution si une étape échoue
   }
 }
 
 switch (testType) {
   case 'unit':
-    console.log('🧪 Executing Unit Tests (Redux Reducers)...');
-    runCommand('jest src/redux/taskSlice.test.js');
+    console.log('🧪 Exécution des Tests Unitaires (Redux)...');
+    runCommand('npx vitest run src/redux');
     break;
 
   case 'integration':
-    console.log('🧩 Executing Integration Tests (React Components + Store)...');
-    runCommand('jest src/tests/integration');
+    console.log('🧩 Exécution des Tests d\'Intégration (React + Store)...');
+    runCommand('npx vitest run src/tests/integration');
     break;
 
   case 'e2e':
-    console.log('🌐 Executing E2E Tests (Playwright Browser)...');
-    runCommand('playwright test');
+    console.log('🌐 Exécution des Tests E2E (Playwright)...');
+    runCommand('npx playwright test e2e');
     break;
 
   case 'all':
-    console.log('🚀 Running ALL Tests...');
-    runCommand('jest src/redux/taskSlice.test.js');
-    runCommand('jest src/tests/integration');
-    runCommand('playwright test');
+    console.log('🚀 LANCEMENT DE LA SUITE COMPLÈTE DE TESTS\n');
+    
+    console.log('--- Step 1/3: Tests Unitaires ---');
+    runCommand('npx vitest run src/redux');
+    
+    console.log('\n--- Step 2/3: Tests d\'Intégration ---');
+    runCommand('npx vitest run src/tests/integration');
+    
+    console.log('\n--- Step 3/3: Tests E2E ---');
+    runCommand('npx playwright test e2e');
+    
+    console.log('\n🎉 TOUS LES TESTS SONT AU VERT ! PIPELINE VALIDÉ.');
     break;
 
   default:
-    console.log(`
-⚠️ Invalid test type provided!
-Usage: node run-tests.js [unit | integration | e2e | all]
-    `);
-    process.exit(1);
+    console.log('Usage: node run-tests.js [unit|integration|e2e|all]');
+    break;
 }

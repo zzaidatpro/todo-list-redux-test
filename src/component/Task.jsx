@@ -4,7 +4,7 @@ import { useState } from 'react';
 // Hook Redux pour envoyer des actions au store
 import { useDispatch } from 'react-redux';
 // Importation des créateurs d'actions depuis le slice des tâches
-import { toggleTask, editTask, deleteTask } from '../redux/tasksSlice';
+import { toggleTask, editTask, deleteTask } from '../redux/taskSlice';
 
 // 2. DÉCLARATION DU COMPOSANT
 // Recevant l'objet "task" en prop ({ id, description, isDone })

@@ -5,7 +5,7 @@ import { configureStore } from "@reduxjs/toolkit";
 
 // 2. IMPORTATION DU REDUCER
 // On importe le reducer généré par notre slice "tasksSlice.js".
-import tasksReducer from "./tasksSlice";
+import tasksReducer from "./taskSlice";
 
 // 3. CRÉATION ET EXPORTATION DU STORE
 // Le store regroupe l'ensemble des états de votre application React.

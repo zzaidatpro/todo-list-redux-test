@@ -8,7 +8,7 @@ import {
   setFilter, 
   deleteAllTasks, 
   deleteAllDoneTasks 
-} from '../redux/tasksSlice';
+} from '../redux/taskSlice';
 
 // 2. DÉCLARATION DU COMPOSANT
 export function ListTask() {

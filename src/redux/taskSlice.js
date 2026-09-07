@@ -3,6 +3,23 @@
 // Cette fonction simplifie la création des reducers et génère automatiquement les actions correspondantes.
 import { createSlice } from '@reduxjs/toolkit';
 
+const loadTasksFromStorage = () => {
+  try {
+    const saved = localStorage.getItem('tasks');
+    return saved ? JSON.parse(saved) : [
+      { id: 1, description: 'React-Redux', isDone: false },
+      { id: 2, description: 'Redux-Hooks', isDone: false },
+      { id: 3, description: 'Redux-Toolkit', isDone: false },
+      { id: 4, description: 'Redux-Saga', isDone: false },
+      { id: 5, description: 'Redux-Thunk', isDone: false },
+      { id: 6, description: 'Redux-Flux', isDone: false },
+      { id: 7, description: 'Redux-Mobx', isDone: false },
+    ];
+  } catch {
+    return [];
+  }
+};
+
 // 2. CRÉATION DU SLICE
 // Un "slice" (tranche) regroupe le nom du module, son état initial et ses fonctions de modification (reducers).
 const tasksSlice = createSlice({
@@ -11,15 +28,7 @@ const tasksSlice = createSlice({
   // --- ÉTAT INITIAL (initialState) ---
   // Définit les données au démarrage de l'application.
   initialState: {
-    items: [ // Tableau contenant la liste de départ des tâches.
-      { id: 1, description: 'React-Redux', isDone: false },
-      { id: 2, description: 'Redux-Hooks', isDone: false },
-      { id: 3, description: 'Redux-Toolkit', isDone: false },
-      { id: 4, description: 'Redux-Saga', isDone: false },
-      { id: 5, description: 'Redux-Thunk', isDone: false },
-      { id: 6, description: 'Redux-Flux', isDone: false },
-      { id: 7, description: 'Redux-Mobx', isDone: false },
-    ],
+    items: loadTasksFromStorage(),
     filter: 'ALL', // Filtre d'affichage actif ('ALL', 'DONE', ou 'NOT_DONE').
   },
 

@@ -3,7 +3,7 @@ version: 2.1
 executors:
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.63.0-noble # Image à jour
+      - image: mcr.microsoft.com/playwright:v1.40.0-jammy # Image à jour
     working_directory: ~/repo
 
 jobs:

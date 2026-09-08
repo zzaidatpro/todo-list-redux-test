@@ -1,14 +1,13 @@
-// playwright.config.js
-const { defineConfig } = require('@playwright/test');
+import { defineConfig } from '@playwright/test';
 
-module.exports = defineConfig({
+export default defineConfig({
   testDir: './e2e',
   use: {
     baseURL: 'http://127.0.0.1:5173',
     trace: 'on-first-retry',
   },
   webServer: {
-    command: 'npx vite --host 0.0.0.0 --port 5173',
+    command: 'vite --host 0.0.0.0 --port 5173',
     url: 'http://127.0.0.1:5173',
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,

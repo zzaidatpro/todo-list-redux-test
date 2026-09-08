@@ -3,7 +3,8 @@ import { test, expect } from '@playwright/test';
 test.describe('E2E - Application Todo Redux', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('/'); // le 'http://localhost:5173' donnait une erreur sur CircleCi
+    const targetUrl = process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://127.0.0.1:5173';
+    await page.goto(targetUrl); 
     await page.evaluate(() => localStorage.clear()); // nettoyage du localStorage
   });
 

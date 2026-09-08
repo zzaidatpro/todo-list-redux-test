@@ -34,7 +34,7 @@ jobs:
 
       - run:
           name: Exécution des tests E2E Playwright
-          command: npx playwright test --config=playwright.config.mjs
+          command: npx playwright test --config=src/playwright.config.mjs
 
       - store_artifacts:
           path: playwright-report

@@ -1,22 +1,20 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig } from '@playwright/test';
 
 export default defineConfig({
   testDir: './e2e',
-  testMatch: '**/*.spec.js',
+  retries: process.env.CI ? 2 : 0,
+
   use: {
-    baseURL: 'http://localhost:5173',
-    headless: true,
+    // Utiliser 127.0.0.1 au lieu de localhost pour éviter les problèmes de résolution DNS sous Linux/Docker
+    baseURL: 'http://127.0.0.1:5173',
+    trace: 'on-first-retry',
   },
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-  ],
+
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:5173',
-    reuseExistingServer: !process.env.CI, // Utilise la variable CI pour basculer automatiquement
+    // On ajoute --host 0.0.0.0 pour forcer Vite à écouter sur toutes les interfaces réseau
+    command: 'npx vite --host 0.0.0.0 --port 5173',
+    url: 'http://127.0.0.1:5173',
+    reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },
 });

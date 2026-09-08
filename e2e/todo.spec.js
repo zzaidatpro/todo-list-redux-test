@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test.describe('E2E - Application Todo Redux', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:5173'); // le '/' donnait une erreur
+    await page.goto('/'); // le 'http://localhost:5173' donnait une erreur sur CircleCi
     await page.evaluate(() => localStorage.clear()); // nettoyage du localStorage
   });
 

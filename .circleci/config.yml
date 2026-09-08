@@ -3,7 +3,7 @@ version: 2.1
 executors:
   playwright-executor:
     docker:
-      - image: mcr.microsoft.com/playwright:v1.40.0-jammy # Image à jour
+      - image: mcr.microsoft.com/playwright:v1.50.0-noble
     working_directory: ~/repo
 
 jobs:
@@ -21,7 +21,6 @@ jobs:
           name: Installation des dépendances npm
           command: npm ci
 
-      # ⚡ CORRECTION : Télécharge les navigateurs exacts de la version de votre package.json
       - run:
           name: Installation des navigateurs Playwright
           command: npx playwright install chromium --with-deps
@@ -34,7 +33,7 @@ jobs:
 
       - run:
           name: Exécution des tests E2E Playwright
-          command: npx playwright test --config=playwright.config.mjs
+          command: npx playwright test
 
       - store_artifacts:
           path: playwright-report

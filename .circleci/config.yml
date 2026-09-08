@@ -1,0 +1,50 @@
+version: 2.1
+
+executors:
+  # Utilisation de l'image officielle Playwright avec les navigateurs préinstallés
+  playwright-executor:
+    docker:
+      - image: mcr.microsoft.com/playwright:v1.40.0-jammy
+    working_directory: ~/repo
+
+jobs:
+  test-e2e:
+    executor: playwright-executor
+    steps:
+      - checkout
+
+      # Restauration du cache npm s'il existe
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package-lock.json" }}
+            - v1-dependencies-
+
+      # Installation des dépendances du projet
+      - run:
+          name: Installation des dépendances
+          command: npm ci
+
+      # Sauvegarde du cache npm
+      - save_cache:
+          paths:
+            - ~/.npm
+          key: v1-dependencies-{{ checksum "package-lock.json" }}
+
+      # Exécution des tests E2E Playwright
+      - run:
+          name: Exécution des tests E2E Playwright
+          command: npx playwright test e2e
+
+      # Sauvegarde des rapports et vidéos d'erreurs éventuelles
+      - store_artifacts:
+          path: playwright-report
+          destination: playwright-report
+
+      - store_artifacts:
+          path: test-results
+          destination: test-results
+
+workflows:
+  build-and-test:
+    jobs:
+      - test-e2e
